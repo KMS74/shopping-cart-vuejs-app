@@ -35,4 +35,8 @@
   .tag {
     cursor: pointer;
   }
+  h2 a {
+    color: #363636;
+    text-decoration: none;
+  }
 </style>
