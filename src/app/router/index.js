@@ -15,7 +15,7 @@ const routes = [
     path: '/products/:id', // Add a dynamic segment to the path
     name: 'product',
     component: ProductItem,
-    props: true, // Pass route params as props to the componentv
+    props: true, // Pass route params as props to the component
     beforeEnter: (to, from, next) => {
       const id = Number(to.params.id);
       // Redirect to not-found page if id is not in the list
