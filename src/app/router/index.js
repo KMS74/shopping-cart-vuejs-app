@@ -6,10 +6,12 @@ import NotFound from '../components/NotFound.vue'
 const routes = [
   {
     path: '/products',
+    name: 'products',
     component: ProductList,
   },
   {
     path: '/cart',
+    name: 'cart',
     component: CartList,
   },
   {
@@ -18,6 +20,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
+    name: 'not-found',
     component: NotFound,
   },
 ]

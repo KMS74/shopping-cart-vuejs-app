@@ -2,10 +2,10 @@
   <div id="app">
     <div class="navigation-buttons">
       <div class="is-pulled-right">
-        <router-link to="/products" class="button">
+        <router-link :to="{name: 'products'}" class="button">
           <i class="fa fa-user-circle"></i><span>Shop</span>
         </router-link>
-        <router-link to="/cart" class="button is-primary">
+        <router-link :to="{name: 'cart'}" class="button is-primary">
           <i class="fa fa-shopping-cart"></i><span>{{ cartQuantity }}</span>
         </router-link>
       </div>
