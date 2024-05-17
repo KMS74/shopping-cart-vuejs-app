@@ -2,16 +2,25 @@ import axios from 'axios'
 
 const state = {
   token: null,
+  loading: false,
 }
 
 const mutations = {
   SET_TOKEN(state, token) {
     state.token = token
   },
+  LOGIN_PENDING(state) {
+    state.loading = true
+  },
+  LOGIN_SUCCESS(state) {
+    state.loading = false
+  }
+
 }
 
 const actions = {
   login({ commit }) {
+    commit('LOGIN_PENDING') // set loading to true
     return axios.post('/api/login', {
       username: 'username',
       password: 'password',
@@ -21,6 +30,7 @@ const actions = {
       localStorage.setItem('token', TOKEN)
       // mutate token state with the returned token
       commit('SET_TOKEN', TOKEN)
+      commit('LOGIN_SUCCESS') // set loading to false
     })
   },
 
@@ -37,6 +47,8 @@ const actions = {
 
 const getters = {
   token: (state) => state.token,
+  isAuthenticated: (state) => !!state.token, // !! converts the value to a booleanv
+  isLoading: (state) => state.loading,
 
 }
 

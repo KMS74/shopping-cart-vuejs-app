@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div class="navigation-buttons">
+    <div class="navigation-buttons" v-if="$route.path !== '/login' && isAuthenticated">
+      <button @click="logout" class="button is-text is-pulled-left">
+        Logout
+      </button>
       <div class="is-pulled-right">
         <router-link :to="{name: 'products'}" class="button">
           <i class="fa fa-user-circle"></i><span>Shop</span>
@@ -25,12 +28,36 @@
   export default {
     name: 'App',
     created() {
-      this.$store.dispatch('getCartItems')
-      this.$store.dispatch('getProductItems')
+      // get token from local storage
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.updateInitialState(token);
+      }
     },
     computed: {
-      ...mapGetters(['cartQuantity']),
+      ...mapGetters(['cartQuantity','token','isAuthenticated']),
     },
+    methods: {
+     async logout() {
+       try {
+          await this.$store.dispatch('logout');
+          this.$router.push({name: 'login'});
+        } catch (error) {
+          console.log(error);
+       }
+      },
+      updateInitialState(token) {
+        this.$store.dispatch('getProductItems',token)
+        this.$store.dispatch('getCartItems',token)
+      }
+    },
+    watch: {
+      token() {
+        if (this.token) {
+          this.updateInitialState(this.token);
+        }
+      }
+    }
   }
 </script>
 
